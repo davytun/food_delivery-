@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "net-ninja",
-    "slug": "net-ninja",
+    "name": "Food Delivery",
+    "slug": "food-delivery",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "netninja",
+    "scheme": "fooddelivery",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -32,6 +32,14 @@
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
+        }
+      ],
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "food-delivery",
+          "organization": "davytun-bt"
         }
       ]
     ],

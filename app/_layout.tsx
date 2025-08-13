@@ -1,29 +1,43 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { SplashScreen, Stack } from "expo-router";
+import "./global.css";
+import { useFonts } from "expo-font";
+import { useEffect } from "react";
+import * as Sentry from '@sentry/react-native';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+Sentry.init({
+  dsn: 'https://27b26ab1e894b1e55fd278c5a600d56a@o4509837037142016.ingest.de.sentry.io/4509837075611728',
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+  // Adds more context data to events (IP address, cookies, user, etc.)
+  // For more information, visit: https://docs.sentry.io/platforms/react-native/data-management/data-collected/
+  sendDefaultPii: true,
+
+  // Configure Session Replay
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1,
+  integrations: [Sentry.mobileReplayIntegration(), Sentry.feedbackIntegration()],
+
+  // uncomment the line below to enable Spotlight (https://spotlightjs.com)
+  // spotlight: __DEV__,
+});
+
+export default Sentry.wrap(function RootLayout() {
+  const [fontsLoaded, error] = useFonts({
+    "Quicksand-Bold": require("../assets/fonts/Quicksand-Bold.ttf"),
+    "Quicksand-Medium": require("../assets/fonts/Quicksand-Medium.ttf"),
+    "Quicksand-Regular": require("../assets/fonts/Quicksand-Regular.ttf"),
+    "Quicksand-SemiBold": require("../assets/fonts/Quicksand-SemiBold.ttf"),
+    "Quicksand-Light": require("../assets/fonts/Quicksand-Light.ttf"),
   });
-
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
+  useEffect(() => {
+    if (error) throw error;
+    if (fontsLoaded) SplashScreen.hideAsync();
+  }, [fontsLoaded, error]);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}
+    />
   );
-}
+});
