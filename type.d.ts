@@ -1,4 +1,4 @@
-import { Models } from "react-native-appwrite";
+import {Models} from "react-native-appwrite";
 
 export interface MenuItem extends Models.Document {
 	name: string;
