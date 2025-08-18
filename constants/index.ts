@@ -200,4 +200,32 @@ export const images = {
   trash,
   user,
 };
- 
+
+export const profile = [
+  {
+    icons: user,
+    title: "Full Name",
+    name: "David Akintunde",
+  },
+  {
+    icons: envelope,
+    title: "Email Address",
+    name: "davidakintunde@gmail.com",
+  },
+  {
+    icons: phone,
+    title: "Phone Number",
+    name: "+234 903 456 7890",
+  },
+  {
+    icons: location,
+    title: "Address 1",
+    name: "123 Main Street, Lagos, Nigeria",
+  },
+  {
+    icons: location,
+    title: "Address 2",
+    name: "456 Elm Street, Lagos, Nigeria",
+  },
+
+];
